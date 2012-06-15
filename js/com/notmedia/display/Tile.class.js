@@ -28,6 +28,7 @@
 			this._tileHeight = this.NumberUtils.isNumeric (height) ? parseFloat(height) : this._tileHeight;
 			this._tileBaseCSS = {'overflow': 'hidden', 'position': 'absolute', 'display': 'block', 'margin': '0', 'padding': '0', 'width': this._tileWidth, 'height': this._tileHeight };
 			this._domObj.css ( this._tileBaseCSS );
+			this._domObj.addClass ( 'tile' );
 			this._domObj.removeClass('swipeL swipeR swipeU swipeD');
 			this._domObj.html ('<div class="label" style="margin: 0 auto; width: 200px; text-align: center;">Item ' + this._id + '</div>' );
 		},
@@ -80,7 +81,9 @@
 		},
 
 		destroy: function () {
-
+			// Remove custom classes
+			this._domObj.removeClass ( 'tile swipeU swipeR swipeD swipeL' );
+			this._domObj.removeClass ( 'u r d l ur ud ul rd rl dl urd url udl rdl urdl' );
 		}
 	});
 
