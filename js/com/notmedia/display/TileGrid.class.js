@@ -85,6 +85,29 @@
 			this._updateTiles();
 		},
 
+		goto: function ( x, y ) {
+			this._scrollEnabled = false;
+			x = this.NumberUtils.isNumeric (x) ? x : 0;
+			y = this.NumberUtils.isNumeric (y) ? y : 0;
+
+			if ( x > this._matrixWidth - 1 ) x =  this._matrixWidth - 1;
+			if ( x < 0 ) x = 0;
+
+			if ( y > this._matrixHeight - 1 ) y =  this._matrixHeight - 1;
+			if ( y < 0 ) y = 0;
+
+			this._x = x;
+			this._y = y;
+
+			var xPos = 0 - (this._x * this._displayWidth);
+			var yPos = 0 - (this._y * this._displayHeight);
+
+			this._scrollContainer.css( 'left', xPos );
+			this._scrollContainer.css( 'top', yPos );
+
+			this._scrollEnabled = true;
+		},
+
 		swipeUp: function () {
 			if (this._scrollEnabled) {
 
@@ -229,7 +252,6 @@
 			var css = { 'display': 'block', 'overflow': 'hidden', 'position': 'relative', 'width': this._displayWidth, 'height': this._displayHeight }
 			var wrapperCSS = { 'display': 'block', 'overflow': 'hidden', 'position': 'relative', 'width': this._displayWidth * this._matrixWidth, 'height': this._displayHeight * this._matrixHeight }
 			this._container.css ( css );
-			this._container.css ( 'border', '1px solid red');
 
 			if (!this._scrollContainer) {
 				var odv = document.createElement("div");
