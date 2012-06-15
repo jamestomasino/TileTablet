@@ -6,6 +6,7 @@
 
 		constructor: function( ) {
 			// Imports
+			Namespace.import (this, 'com.notmedia.utils.Delegate' );
 			Namespace.import (this, 'com.notmedia.utils.ArrayUtils' );
 			Namespace.import (this, 'com.notmedia.utils.NumberUtils' );
 			Namespace.import (this, 'com.notmedia.display.Tile' );
@@ -17,11 +18,22 @@
 			this._matrix = [null];
 			this._matrixWidth = 1;
 			this._matrixHeight = 1;
+			this._slideSpeed = 250;
 		},
 
 		setContainer: function ( container ) {
-			this._container = container;
-			this._updateContainer();
+			var newContainer = this._getJQueryItem ( container );
+			if ( newContainer != null ) {
+				this._container = container;
+				this._container.swipe({
+					swipeUp: this.Delegate.createDelegate ( this, this.swipeUp ),
+					swipeDown: this.Delegate.createDelegate ( this, this.swipeDown ),
+					swipeLeft: this.Delegate.createDelegate ( this, this.swipeLeft ),
+					swipeRight: this.Delegate.createDelegate ( this, this.swipeRight )
+				});
+
+				this._updateContainer();
+			}
 		},
 
 		setDisplayWidth: function ( displayWidth ) {
@@ -42,8 +54,7 @@
 				for ( var j = 0; j < this._matrixHeight; ++j ) {
 					var index = i + ( j * this._matrixWidth );
 					var item = ( index < newMatrix.length -1 ) ? newMatrix[ index ] : null;
-					item = (item instanceof jQuery) ? item : (item && item.nodeType == 1) ? jQuery (item) : null;
-
+					item = this._getJQueryItem ( item );
 					if (item == null) {
 						this._matrix [index] = null;
 					} else {
@@ -54,6 +65,26 @@
 					}
 				}
 			}
+		},
+
+		swipeUp: function () {
+			this._container.animate({ top: '-=' + this._displayHeight }, this._slideSpeed );
+		},
+
+		swipeDown: function () {
+			this._container.animate({ top: '+=' + this._displayHeight }, this._slideSpeed );
+		},
+
+		swipeLeft: function () {
+			this._container.animate({ top: '+=' + this._displayWidth}, this._slideSpeed );
+		},
+
+		swipeRight: function () {
+			this._container.animate({ top: '-=' + this._displayWidth}, this._slideSpeed );
+		},
+
+		_getJQueryItem: function ( item ) {
+			return (item instanceof jQuery) ? item : (item && item.nodeType == 1) ? jQuery (item) : null;
 		},
 
 		_updateContainer: function () {
