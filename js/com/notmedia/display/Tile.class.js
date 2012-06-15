@@ -13,6 +13,7 @@
 		constructor: function( domObj, width, height, id ) {
 			Namespace.import (this, 'com.notmedia.utils.NumberUtils' );
 			Namespace.import (this, 'com.notmedia.data.BitArray' );
+			Namespace.import (this, 'jQuery');
 
 			this._domObj = domObj;
 			this._tileWidth = 1;
@@ -86,8 +87,8 @@
 		isDebug: function () { return this._isDebug; },
 		setDebug: function (val) {
 			this._isDebug = val;
-			if ( this._isDebug ) this._domObj.html ('<div class="label" style="padding: 10px;">Tile [' + this._name + ']  Position: (' + this._id + ')</div>' );
-			else this._domObj.html ('<div>');
+			if ( this._isDebug ) this._domObj.prepend ('<div class="tileDebugLabel" style="padding: 10px;">Tile [' + this._name + ']  Position: (' + this._id + ')</div>' );
+			else this.jQuery('.tileDebugLabel').remove();
 		},
 
 		destroy: function () {
