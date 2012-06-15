@@ -63,7 +63,7 @@
 			for ( var i = 0; i < this._matrixWidth; ++i ) {
 				for ( var j = 0; j < this._matrixHeight; ++j ) {
 					var index = i + ( j * this._matrixWidth );
-					var item = ( index < newMatrix.length -1 ) ? newMatrix[ index ] : null;
+					var item = ( index < newMatrix.length ) ? newMatrix[ index ] : null;
 					item = this._getJQueryItem ( item );
 					if (item == null) {
 						this._matrix [index] = null;
@@ -85,17 +85,15 @@
 
 				++ this._y;
 				var animate = true;
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+
 				if ( this._y > this._matrixHeight - 1)
 				{
 					animate = false;
 					-- this._y
-				}
-
-				var newIndex = this._x + ( this._y * this._matrixWidth );
-				if ( this._matrix[newIndex] == null )
-				{
+				} else if ( this._matrix[newIndex] == null ) {
 					animate = false
-					-- this.y;
+					-- this._y;
 				}
 
 				if (animate) {
@@ -111,17 +109,15 @@
 
 				-- this._y;
 				var animate = true;
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+
 				if ( this._y < 0 )
 				{
 					animate = false;
 					++ this._y
-				}
-
-				var newIndex = this._x + ( this._y * this._matrixWidth );
-				if ( this._matrix[newIndex] == null )
-				{
+				} else if ( this._matrix[newIndex] == null ) {
 					animate = false
-					++ this.y;
+					++ this._y;
 				}
 
 				if (animate) {
@@ -137,17 +133,14 @@
 
 				++ this._x;
 				var animate = true;
-				if ( this._x > this._matrixWidth - 1)
-				{
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+
+				if ( this._x > this._matrixWidth - 1) {
 					animate = false;
 					-- this._x;
-				}
-
-				var newIndex = this._x + ( this._y * this._matrixWidth );
-				if ( this._matrix[newIndex] == null )
-				{
+				} else if ( this._matrix[newIndex] == null ) {
 					animate = false
-					-- this.x;
+					-- this._x;
 				}
 
 				if (animate) {
@@ -163,19 +156,16 @@
 
 				-- this._x;
 				var animate = true;
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+
 				if ( this._x < 0 )
 				{
 					animate = false;
 					++ this._x;
-				}
-
-				var newIndex = this._x + ( this._y * this._matrixWidth );
-				if ( this._matrix[newIndex] == null )
-				{
+				} else if ( this._matrix[newIndex] == null ) {
 					animate = false
-					++ this.x;
+					++ this._x;
 				}
-
 
 				if (animate) {
 					this._scrollContainer.stop (true, true);
