@@ -15,10 +15,16 @@
 			this._displayWidth = 1;
 			this._displayHeight = 1;
 			this._container = null;
+			this._scrollContainer = null;
 			this._matrix = [null];
 			this._matrixWidth = 1;
 			this._matrixHeight = 1;
 			this._slideSpeed = 250;
+			this._allItems = [];
+			this._allTiles = [];
+			this._x = 0;
+			this._y = 0;
+			this._scrollEnabled = true;
 		},
 
 		setContainer: function ( container ) {
@@ -50,6 +56,10 @@
 			var newMatrix = this.ArrayUtils.isArray ( matrix ) ? matrix : this._matrix;
 			this._matrixWidth = this.NumberUtils.isNumeric (width) ? width : 1;
 			this._matrixHeight = this.NumberUtils.isNumeric (height) ? height : 1;
+
+			this._allItems = [];
+			this._allTiles = [];
+
 			for ( var i = 0; i < this._matrixWidth; ++i ) {
 				for ( var j = 0; j < this._matrixHeight; ++j ) {
 					var index = i + ( j * this._matrixWidth );
@@ -62,25 +72,121 @@
 						this._matrix [index] = tile;
 						item.css ( 'top', this._displayHeight * j);
 						item.css ( 'left', this._displayWidth * i);
+						this._allItems.push ( item );
+						this._allTiles.push ( tile );
 					}
+				}
+			}
+			this._updateContainer();
+		},
+
+		swipeUp: function () {
+			if (this._scrollEnabled) {
+
+				++ this._y;
+				var animate = true;
+				if ( this._y > this._matrixHeight - 1)
+				{
+					animate = false;
+					-- this._y
+				}
+
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+				if ( this._matrix[newIndex] == null )
+				{
+					animate = false
+					-- this.y;
+				}
+
+				if (animate) {
+					this._scrollContainer.stop (true, true);
+					this._scrollEnabled = false;
+					this._scrollContainer.animate({ top: '-=' + this._displayHeight }, this._slideSpeed, null, this.Delegate.createDelegate ( this, this._swipeComplete ) );
 				}
 			}
 		},
 
-		swipeUp: function () {
-			this._container.animate({ top: '-=' + this._displayHeight }, this._slideSpeed );
-		},
-
 		swipeDown: function () {
-			this._container.animate({ top: '+=' + this._displayHeight }, this._slideSpeed );
+			if (this._scrollEnabled) {
+
+				-- this._y;
+				var animate = true;
+				if ( this._y < 0 )
+				{
+					animate = false;
+					++ this._y
+				}
+
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+				if ( this._matrix[newIndex] == null )
+				{
+					animate = false
+					++ this.y;
+				}
+
+				if (animate) {
+					this._scrollContainer.stop (true, true);
+					this._scrollEnabled = false;
+					this._scrollContainer.animate({ top: '+=' + this._displayHeight }, this._slideSpeed, null, this.Delegate.createDelegate ( this, this._swipeComplete ) );
+				}
+			}
 		},
 
 		swipeLeft: function () {
-			this._container.animate({ top: '+=' + this._displayWidth}, this._slideSpeed );
+			if (this._scrollEnabled) {
+
+				++ this._x;
+				var animate = true;
+				if ( this._x > this._matrixWidth - 1)
+				{
+					animate = false;
+					-- this._x;
+				}
+
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+				if ( this._matrix[newIndex] == null )
+				{
+					animate = false
+					-- this.x;
+				}
+
+				if (animate) {
+					this._scrollContainer.stop (true, true);
+					this._scrollEnabled = false;
+					this._scrollContainer.animate({ left: '-=' + this._displayWidth}, this._slideSpeed, null, this.Delegate.createDelegate ( this, this._swipeComplete ) );
+				}
+			}
 		},
 
 		swipeRight: function () {
-			this._container.animate({ top: '-=' + this._displayWidth}, this._slideSpeed );
+			if (this._scrollEnabled) {
+
+				-- this._x;
+				var animate = true;
+				if ( this._x < 0 )
+				{
+					animate = false;
+					++ this._x;
+				}
+
+				var newIndex = this._x + ( this._y * this._matrixWidth );
+				if ( this._matrix[newIndex] == null )
+				{
+					animate = false
+					++ this.x;
+				}
+
+
+				if (animate) {
+					this._scrollContainer.stop (true, true);
+					this._scrollEnabled = false;
+					this._scrollContainer.animate({ left: '+=' + this._displayWidth}, this._slideSpeed, null, this.Delegate.createDelegate ( this, this._swipeComplete ) );
+				}
+			}
+		},
+
+		_swipeComplete: function () {
+			this._scrollEnabled = true;
 		},
 
 		_getJQueryItem: function ( item ) {
@@ -89,8 +195,24 @@
 
 		_updateContainer: function () {
 			var css = { 'display': 'block', 'overflow': 'hidden', 'position': 'relative', 'width': this._displayWidth, 'height': this._displayHeight }
+			var wrapperCSS = { 'display': 'block', 'overflow': 'hidden', 'position': 'relative', 'width': this._displayWidth * this._matrixWidth, 'height': this._displayHeight * this._matrixHeight }
 			this._container.css ( css );
 			this._container.css ( 'border', '1px solid red');
+
+			if (!this._scrollContainer) {
+				var odv = document.createElement("div");
+				var containerID = this._container.attr('id') + '_scrollWrap';
+				odv.id = containerID
+				this._scrollContainer = $(odv);
+			}
+
+			this._scrollContainer.css ( wrapperCSS );
+
+			this._container.append ( this._scrollContainer );
+
+			for ( var i = 0; i < this._allItems.length; ++i ) {
+				this._scrollContainer.append ( this._allItems[i] );
+			}
 		},
 
 		logProperties: function () {
