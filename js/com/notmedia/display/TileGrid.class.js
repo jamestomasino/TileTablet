@@ -57,6 +57,8 @@
 			this._matrixWidth = this.NumberUtils.isNumeric (width) ? width : 1;
 			this._matrixHeight = this.NumberUtils.isNumeric (height) ? height : 1;
 
+			// Reset Tiles and Items
+			this._removeTiles();
 			this._allItems = [];
 			this._allTiles = [];
 
@@ -77,10 +79,13 @@
 					}
 				}
 			}
+
 			this._updateContainer();
+			this._updateTiles();
 		},
 
 		swipeUp: function () {
+			log ('swipeUp');
 			if (this._scrollEnabled) {
 
 				++ this._y;
@@ -105,6 +110,7 @@
 		},
 
 		swipeDown: function () {
+			log ('swipeDown');
 			if (this._scrollEnabled) {
 
 				-- this._y;
@@ -129,6 +135,7 @@
 		},
 
 		swipeLeft: function () {
+			log ('swipeLeft');
 			if (this._scrollEnabled) {
 
 				++ this._x;
@@ -152,6 +159,7 @@
 		},
 
 		swipeRight: function () {
+			log ('swipeRight');
 			if (this._scrollEnabled) {
 
 				-- this._x;
@@ -181,6 +189,43 @@
 
 		_getJQueryItem: function ( item ) {
 			return (item instanceof jQuery) ? item : (item && item.nodeType == 1) ? jQuery (item) : null;
+		},
+
+		_updateTiles: function () {
+			for ( var i = 0; i < this._matrixWidth; ++i ) {
+				for ( var j = 0; j < this._matrixHeight; ++j ) {
+					var index = i + ( j * this._matrixWidth );
+					var tile = this._matrix[index];
+
+					if ( tile )
+					{
+						var leftIndex  = index - 1;
+						var rightIndex = index + 1;
+						var upIndex    = i + ( (j - 1) * this._matrixWidth );
+						var downIndex  = i + ( (j + 1) * this._matrixWidth );
+
+						if ( i > 0 && this._matrix[leftIndex] ) tile.setNavigation ( this.Tile.DIR_LEFT, true );
+						else tile.setNavigation ( this.Tile.DIR_LEFT, false );
+
+						if ( i < (this._matrixWidth - 1) && this._matrix[rightIndex] ) tile.setNavigation ( this.Tile.DIR_RIGHT, true );
+						else tile.setNavigation ( this.Tile.DIR_RIGHT, false );
+
+						if ( j > 0 && this._matrix[upIndex] ) tile.setNavigation ( this.Tile.DIR_UP, true );
+						else tile.setNavigation ( this.Tile.DIR_UP, false );
+
+						if ( j < (this._matrixHeight - 1) && this._matrix[downIndex] ) tile.setNavigation ( this.Tile.DIR_DOWN, true );
+						else tile.setNavigation ( this.Tile.DIR_DOWN, false );
+					}
+				}
+			}
+		},
+
+		_removeTiles: function () {
+			for (var i = 0; i < this._allTiles.length; ++i ) {
+				var tile = this._allTiles[i];
+				tile.removeEventListener ( this.Tile.ENABLED_CHANGE );
+				tile.destroy();
+			}
 		},
 
 		_updateContainer: function () {

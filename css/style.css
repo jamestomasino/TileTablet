@@ -205,8 +205,95 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 
+.u {
+	background-image: url(../img/up.png);
+	background-position: center top;
+	background-repeat: no-repeat;
+}
 
+.r {
+	background-image: url(../img/right.png);
+	background-position: right center;
+	background-repeat: no-repeat;
+}
 
+.d {
+	background-image: url(../img/down.png);
+	background-position: center bottom;
+	background-repeat: no-repeat;
+}
+
+.l {
+	background-image: url(../img/left.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+
+.ur {
+	background-image: url(../img/up.png), url(../img/right.png);
+	background-position: center top, right center;
+	background-repeat: no-repeat;
+}
+
+.ud {
+	background-image: url(../img/up.png), url(../img/down.png);
+	background-position: center top, center bottom;
+	background-repeat: no-repeat;
+}
+
+.ul {
+	background-image: url(../img/up.png), url(../img/left.png);
+	background-position: center top, left center;
+	background-repeat: no-repeat;
+}
+
+.rd {
+	background-image: url(../img/right.png), url(../img/down.png);
+	background-position: right center, center bottom;
+	background-repeat: no-repeat;
+}
+
+.rl {
+	background-image: url(../img/right.png), url(../img/left.png);
+	background-position: right center, left center;
+	background-repeat: no-repeat;
+}
+
+.dl {
+	background-image: url(../img/down.png), url(../img/left.png);
+	background-position: center bottom, left center;
+	background-repeat: no-repeat;
+}
+
+.urd {
+	background-image: url(../img/up.png), url(../img/right.png), url(../img/down.png);
+	background-position: center top, right center, center bottom;
+	background-repeat: no-repeat;
+}
+
+.url {
+	background-image: url(../img/up.png), url(../img/right.png), url(../img/left.png);
+	background-position: center top, right center, left center;
+	background-repeat: no-repeat;
+}
+
+.udl {
+	background-image: url(../img/up.png), url(../img/down.png), url(../img/left.png);
+	background-position: center top, center bottom, left center;
+	background-repeat: no-repeat;
+}
+
+.rdl {
+	background-image: url(../img/right.png), url(../img/down.png), url(../img/left.png);
+	background-position: right center, center bottom, left center;
+	background-repeat: no-repeat;
+}
+
+.urdl {
+	background-image: url(../img/up.png), url(../img/right.png), url(../img/down.png), url(../img/left.png);
+	background-position: center top, right center, center bottom, left center;
+	background-repeat: no-repeat;
+}
 
 
 
