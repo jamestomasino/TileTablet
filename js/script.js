@@ -1,0 +1,19 @@
+Namespace.import ( this, 'com.notmedia.display.TileGrid' );
+
+var tile1 = document.getElementById('tile1');
+var tile2 = {'test': 5};
+var matrix = [ tile1,       $('#tile2'), $('#tile3'),
+               $('#tile4'), $('#tile5'), $('#tile6'),
+               $('#tile7'), $('#tile8'), $('#tile9'),
+               $('#tile10'), $('#tile11'), $('#tile12'),
+               $('#tile13'), $('#tile14'), $('#tile15'),
+               $('#tile16'), $('#tile17'), $('#tile18'),
+               $('#tile19'), $('#tile20')
+
+			 ];
+
+var grid = new TileGrid ( );
+	grid.setContainer ( $('#container') );
+	grid.setDisplayWidth ( 1024 );
+	grid.setDisplayHeight ( 768 );
+	grid.attachMatrix ( matrix, 3, 7 );
