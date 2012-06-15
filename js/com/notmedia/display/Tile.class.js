@@ -18,9 +18,11 @@
 			this._tileWidth = 1;
 			this._tileHeight = 1;
 			this._id = id;
+			this._name = this._domObj.attr('id');
 			this._isEnabled = true;
 			this.setGridSize ( width, height );
 			this._navDirections = new this.BitArray ([0,0,0,0]);
+			this._isDebug = false;
 		},
 
 		setGridSize: function ( width, height ) {
@@ -30,7 +32,8 @@
 			this._domObj.css ( this._tileBaseCSS );
 			this._domObj.addClass ( 'tile' );
 			this._domObj.removeClass('swipeL swipeR swipeU swipeD');
-			this._domObj.html ('<div class="label" style="margin: 0 auto; width: 200px; text-align: center;">Item ' + this._id + '</div>' );
+
+			// Debugging
 		},
 
 		getNavigation: function ( dir ) { return this._navDirections.get ( dir ); },
@@ -78,6 +81,13 @@
 		disable: function () {
 			this._isEnabled = false;
 			dispatchEvent ( Tile.ENABLED_CHANGE );
+		},
+
+		isDebug: function () { return this._isDebug; },
+		setDebug: function (val) {
+			this._isDebug = val;
+			if ( this._isDebug ) this._domObj.html ('<div class="label" style="padding: 10px;">Tile [' + this._name + ']  Position: (' + this._id + ')</div>' );
+			else this._domObj.html ('<div>');
 		},
 
 		destroy: function () {

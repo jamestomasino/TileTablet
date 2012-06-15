@@ -13,3 +13,4 @@ var grid = new TileGrid ( );
 	grid.setDisplayWidth ( 1024 );
 	grid.setDisplayHeight ( 768 );
 	grid.attachMatrix ( matrix, 3, 7 );
+	grid.setDebug(true);

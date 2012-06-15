@@ -25,6 +25,7 @@
 			this._x = 0;
 			this._y = 0;
 			this._scrollEnabled = true;
+			this._isDebug = false;
 		},
 
 		setContainer: function ( container ) {
@@ -85,7 +86,6 @@
 		},
 
 		swipeUp: function () {
-			log ('swipeUp');
 			if (this._scrollEnabled) {
 
 				++ this._y;
@@ -110,7 +110,6 @@
 		},
 
 		swipeDown: function () {
-			log ('swipeDown');
 			if (this._scrollEnabled) {
 
 				-- this._y;
@@ -135,7 +134,6 @@
 		},
 
 		swipeLeft: function () {
-			log ('swipeLeft');
 			if (this._scrollEnabled) {
 
 				++ this._x;
@@ -159,7 +157,6 @@
 		},
 
 		swipeRight: function () {
-			log ('swipeRight');
 			if (this._scrollEnabled) {
 
 				-- this._x;
@@ -250,8 +247,17 @@
 			}
 		},
 
+		isDebug: function () { return this._isDebug; },
+		setDebug: function (val) {
+			this._isDebug = val;
+			for (var i = 0; i < this._allTiles.length; ++i ) {
+				this._allTiles[i].setDebug ( val );
+			}
+		},
+
+
 		logProperties: function () {
-			log ( '[TileGrid] ', this._displayWidth, this._displayHeight );
+
 		}
 
 	});
