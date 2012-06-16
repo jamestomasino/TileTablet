@@ -25,3 +25,5 @@ var grid = new TileGrid ( );
 	grid.attachMatrix ( matrix, 16, 8 );
 	grid.goto ( 7, 7 );
 //	grid.setDebug(true);
+
+$('#container').css('visibility', 'visible' );
