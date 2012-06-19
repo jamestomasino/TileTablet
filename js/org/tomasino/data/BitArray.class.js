@@ -182,7 +182,7 @@
 	});
 
 
-	var namespace = new Namespace ( 'com.notmedia.data' );
+	var namespace = new Namespace ( 'org.tomasino.data' );
 	namespace.BitArray = BitArray;
 
 })();

@@ -1,15 +1,15 @@
 (function() {
 
-	var TileGrid = my.Class( com.notmedia.events.EventDispatcher, {
+	var TileGrid = my.Class( org.tomasino.events.EventDispatcher, {
 
 		STATIC: {},
 
 		constructor: function( ) {
 			// Imports
-			Namespace.import (this, 'com.notmedia.utils.Delegate' );
-			Namespace.import (this, 'com.notmedia.utils.ArrayUtils' );
-			Namespace.import (this, 'com.notmedia.utils.NumberUtils' );
-			Namespace.import (this, 'com.notmedia.display.Tile' );
+			Namespace.import (this, 'org.tomasino.utils.Delegate' );
+			Namespace.import (this, 'org.tomasino.utils.ArrayUtils' );
+			Namespace.import (this, 'org.tomasino.utils.NumberUtils' );
+			Namespace.import (this, 'org.tomasino.display.Tile' );
 
 			// Member Vars
 			this._displayWidth = 1;
@@ -284,7 +284,7 @@
 
 	});
 
-	var namespace = new Namespace ( 'com.notmedia.display' );
+	var namespace = new Namespace ( 'org.tomasino.display' );
 	namespace.TileGrid = TileGrid;
 
 })();

@@ -1,6 +1,6 @@
 (function() {
 
-	var Tile = my.Class( com.notmedia.events.EventDispatcher, {
+	var Tile = my.Class( org.tomasino.events.EventDispatcher, {
 
 		STATIC: {
 			ENABLED_CHANGE: 'Tile_ENABLED_CHANGE',
@@ -11,8 +11,8 @@
 		},
 
 		constructor: function( domObj, width, height, id ) {
-			Namespace.import (this, 'com.notmedia.utils.NumberUtils' );
-			Namespace.import (this, 'com.notmedia.data.BitArray' );
+			Namespace.import (this, 'org.tomasino.utils.NumberUtils' );
+			Namespace.import (this, 'org.tomasino.data.BitArray' );
 			Namespace.import (this, 'jQuery');
 
 			this._domObj = domObj;
@@ -98,7 +98,7 @@
 		}
 	});
 
-	var namespace = new Namespace ( 'com.notmedia.display' );
+	var namespace = new Namespace ( 'org.tomasino.display' );
 	namespace.Tile = Tile;
 
 })();

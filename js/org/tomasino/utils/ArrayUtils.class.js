@@ -17,7 +17,7 @@
 		return ( Object.prototype.toString.call( a ) === '[object Array]' )
 	}
 
-	var namespace = new Namespace ( 'com.notmedia.utils' );
+	var namespace = new Namespace ( 'org.tomasino.utils' );
 
 	namespace.ArrayUtils = ArrayUtils.getInst();
 

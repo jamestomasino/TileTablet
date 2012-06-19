@@ -20,7 +20,7 @@
 		}
 		return shim;
 	}
-	var namespace = new Namespace ( 'com.notmedia.utils' );
+	var namespace = new Namespace ( 'org.tomasino.utils' );
 
 	namespace.Delegate = Delegate.getInst();
 

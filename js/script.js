@@ -1,4 +1,4 @@
-Namespace.import ( this, 'com.notmedia.display.TileGrid' );
+Namespace.import ( this, 'org.tomasino.display.TileGrid' );
 /*
 var matrix = [ $('#tile1'),  $('#tile2'),  $('#tile3'),
                $('#tile4'),  $('#tile5'),  null,

@@ -17,7 +17,7 @@
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
-	var namespace = new Namespace ( 'com.notmedia.utils' );
+	var namespace = new Namespace ( 'org.tomasino.utils' );
 
 	namespace.NumberUtils = NumberUtils.getInst();
 
