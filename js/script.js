@@ -1,3 +1,5 @@
+Namespace.baseURL = 'js/';
+Namespace.import ( this, 'org.tomasino.events.EventDispatcher' );
 Namespace.import ( this, 'org.tomasino.display.TileGrid' );
 /*
 var matrix = [ $('#tile1'),  $('#tile2'),  $('#tile3'),
